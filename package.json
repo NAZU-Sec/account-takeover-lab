@@ -1,0 +1,26 @@
+{
+  "name": "account-takeover-lab",
+  "version": "1.0.0",
+  "description": "Vulnerable node.js account takeover lab ",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodejs",
+    "idor",
+    "ato",
+    "vuln",
+    "lab",
+    "nazu",
+    "security",
+    "web",
+    "bugbounty",
+    "auth"
+  ],
+  "author": "Samuel Amsalu - NAZU Sec",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
