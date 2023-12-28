@@ -12,12 +12,13 @@ const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
 
 app.use(expressSession({
-	secret: process.env.SESSION_SECRET,
+	secret: "407b020516b12ae74c9bd2ece2ed546c44d4ddcd4f05d816bf26ad71b41bc179",
 	resave: false,
 	saveUninitialized: false,
 }));
 
 app.use(cookieParser());
+app.use(express.json());
 
 // Main Route
 app.use('/', hunterRouter);

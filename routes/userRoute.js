@@ -1,16 +1,11 @@
 const express = require('express');
 const hunterRouter = express.Router();
+const registerUser = require('../controllers/registerController').registerUser;
 
-hunterRouter.post('/register', function(req, res){
-	try{
-		res.status(201);
-		res.send("User Register!")
-	} catch (err){
-		res.status(400);
-		res.send(err.message)
-	}
-});
+// Hunter register page
+hunterRouter.post('/register', registerUser);
 
+// Hunter login page
 hunterRouter.post('/login', function(req, res){
 	try{
 		res.status(201);
@@ -21,6 +16,7 @@ hunterRouter.post('/login', function(req, res){
 	}
 })
 
+// Hunter home page
 hunterRouter.get('/', function(req, res){
 	res.status(200).send("Hello Hackers!")
 });
