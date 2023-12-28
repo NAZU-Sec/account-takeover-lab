@@ -35,8 +35,8 @@ module.exports.loginUser = async (req, res) => {
 
     // Check if user exists and password matches
     if (user && await bcrypt.compare(password, user.password)) {
-      // Create session (if using sessions)
-      req.session.user = user; // Ensure session middleware is configured
+      // Create session
+      req.session.user = user;
 
       res.status(200).json({ message: "Login successful!" });
     } else {
