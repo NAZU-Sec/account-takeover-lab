@@ -4,7 +4,8 @@
   "description": "Vulnerable node.js account takeover lab ",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon server.js"
+    "start": "node server.js",	  
+    "server": "nodemon server.js"
   },
   "keywords": [
     "nodejs",
