@@ -24,8 +24,7 @@ module.exports.loginUser = async (req, res) => {
     // Validate inputs
     const validationErrors = validateInputs(req);
     if (validationErrors) {
-      res.status(400).json({ errors: validationErrors });
-      return;
+      return viewsController.renderLoginPage(req, res, validationErrors.join('<br>'));
     }
 
     const { username, password } = req.body;
@@ -38,6 +37,8 @@ module.exports.loginUser = async (req, res) => {
       // Create session
       req.session.user = user;
 
+      res.redirect('/dashboard');
+      
       res.status(200).json({ message: "Login successful!" });
     } else {
       res.status(401).json({ error: "Invalid username or password" });

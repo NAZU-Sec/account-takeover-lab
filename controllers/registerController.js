@@ -1,5 +1,7 @@
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const ejs = require('ejs');
+
 // Input validation function
 function validateInputs(req) {
   const errors = [];
@@ -24,7 +26,7 @@ module.exports.registerUser = async (req, res) => {
     console.log(req.body);
     const validationErrors = validateInputs(req);
     if (validationErrors) {
-      res.status(400).json({ errors: validationErrors });
+      res.render('register', { errors: validationErrors, successMessage: '' });
       return;
     }
 
@@ -36,16 +38,14 @@ module.exports.registerUser = async (req, res) => {
       return;
     }
 
-    const hashedPassword = await bcrypt.hash(password, 10); // Consider Argon2 for stronger hashing
-
+    const hashedPassword = await bcrypt.hash(password, 10); 
     const newUser = new User({ username, password: hashedPassword });
     await newUser.save();
 
-    req.session.user = newUser; // Ensure session middleware is configured
-
-    res.status(201).json({ message: "User registered successfully!" });
+    req.session.user = newUser;
+    res.render('register', { successMessage: 'User registered successfully!' });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "Registration failed due to an unexpected error: " + err.message });
+    res.render('register', { errors: ['Registration failed due to an unexpected error.'], successMessage: '' }); // Pass errors instead
   }
 };

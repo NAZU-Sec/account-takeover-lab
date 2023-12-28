@@ -1,5 +1,6 @@
 // app.js
-
+const ejs = require('ejs');
+const path = require('path');
 const express = require('express');
 const app = express();
 const morgan = require('morgan');
@@ -19,6 +20,10 @@ app.use(expressSession({
 
 app.use(cookieParser());
 app.use(express.json());
+
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, '../views'));
+app.set('view cache', false);
 
 // Main Route
 app.use('/', hunterRouter);
