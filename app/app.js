@@ -12,12 +12,8 @@ const chalRouter = require('../routes/chalRoute')
 const expressSession = require('express-session');
 const cookieParser = require('cookie-parser');
 
-app.use(expressSession({
-	secret: "407b020516b12ae74c9bd2ece2ed546c44d4ddcd4f05d816bf26ad71b41bc179",
-	resave: false,
-	saveUninitialized: false,
-}));
 
+// middlewares
 app.use(cookieParser());
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -25,8 +21,18 @@ app.use(express.urlencoded({ extended: true }));
 app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.set('view cache', false);
-
 app.use(express.static(path.join(__dirname, '../public')));
+
+
+app.use(expressSession({
+	secret: "407b020516b12ae74c9bd2ece2ed546c44d4ddcd4f05d816bf26ad71b41bc179",
+	resave: false,
+	saveUninitialized: false,
+	cookie: {
+		secure: false,
+		httpOnly: true,
+	},
+}));
 
 app.use((err, req, res, next) => {
   console.error(err.stack);
@@ -37,6 +43,6 @@ app.use((err, req, res, next) => {
 app.use('/', hunterRouter);
 
 // Challenge Route
-app.use('/level', chalRouter);
+app.use('/dashboard/level', chalRouter);
 
 module.exports = app;

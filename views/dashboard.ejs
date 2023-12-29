@@ -1,0 +1,106 @@
+<!-- dashboard.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ATO - Dashboard</title>
+  <style type="text/css">
+    body {
+  background-color: black;
+  color: white;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
+
+.dashboard-container {
+  max-width: 800px;
+  margin: 50px auto;
+  padding: 20px;
+  background-color: #333;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  text-align: center;
+}
+
+h1, h2, p {
+  color: #00ff00;
+}
+
+.lab-list {
+  margin-top: 20px;
+}
+
+.lab-list ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.lab-list li {
+  margin: 5px 0;
+}
+
+.lab-list a {
+  color: #00ff00;
+  text-decoration: none;
+}
+
+.logout-btn {
+  margin-top: 20px;
+}
+
+.logout-btn a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #00ff00;
+  color: black;
+  text-decoration: none;
+  border-radius: 5px;
+}
+
+footer {
+  margin-top: 50px;
+  padding: 20px;
+  background-color: #333;
+  text-align: center;
+}
+
+.social-links a {
+  margin: 0 10px;
+  color: #00ff00;
+  text-decoration: none;
+}
+  </style>
+</head>
+<body>
+  <div class="dashboard-container">
+    <h1>Welcome to the Account Takeover Lab Dashboard</h1>
+    <p>Level up your security skills and become a bug bounty hunter!</p>
+    
+    <div class="lab-list">
+      <h2>Labs:</h2>
+      <ul>
+        <li><a href="/dashboard/level/1">Level 1</a></li>
+        <li><a href="/dashboard/level/2">Level 2</a></li>
+        <li><a href="/dashboard/level/3">Level 3</a></li>
+        <li><a href="/dashboard/level/4">Level 4</a></li>
+      </ul>
+    </div>
+
+    <div class="logout-btn">
+      <a href="/logout">Logout</a>
+    </div>
+  </div>
+
+  <footer>
+    <p>Made with ❤️ by NAZU Sec</p>
+    <div class="social-links">
+      <a href="https://twitter.com/mrnazu_" target="_blank">Twitter</a>
+      <a href="https://github.com/mrnazu" target="_blank">GitHub</a>
+      <a href="https://t.me/mrnazu" target="_blank">Telegram</a>
+    </div>
+  </footer>
+</body>
+</html>
