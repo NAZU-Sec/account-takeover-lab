@@ -26,6 +26,13 @@ app.set('view engine', 'ejs');
 app.set('views', path.join(__dirname, '../views'));
 app.set('view cache', false);
 
+app.use(express.static(path.join(__dirname, '../public')));
+
+app.use((err, req, res, next) => {
+  console.error(err.stack);
+  res.status(500).send('Something went wrong!');
+});
+
 // Main Route
 app.use('/', hunterRouter);
 

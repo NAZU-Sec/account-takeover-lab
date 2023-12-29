@@ -9,3 +9,4 @@ exports.renderLoginPage = (req, res, errorMessage = '', registrationSuccess = fa
   res.render('login', { errorMessage, registrationSuccess });
 };
 
+
