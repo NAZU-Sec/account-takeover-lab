@@ -1,5 +1,8 @@
+// loginController.js 
+
 const bcrypt = require('bcryptjs');
 const User = require('../models/user');
+const ejs = require('ejs');
 
 function validateInputs(req) {
   const errors = [];
@@ -7,7 +10,7 @@ function validateInputs(req) {
   // Validate username
   const username = req.body.username;
   if (!username || username.length < 5 || !/^[a-zA-Z0-9_]+$/.test(username)) {
-    errors.push("Username is required and must be at least 5 characters long. It can only contain letters, numbers, and underscores.");
+    errors.push("Username is required and must be at least 5 characters long.");
   }
 
   // Validate password
@@ -21,10 +24,12 @@ function validateInputs(req) {
 
 module.exports.loginUser = async (req, res) => {
   try {
+    const registrationSuccess = req.query.registrationSuccess === 'true';
+
     // Validate inputs
     const validationErrors = validateInputs(req);
     if (validationErrors) {
-      return viewsController.renderLoginPage(req, res, validationErrors.join('<br>'));
+      return viewsController.renderLoginPage(req, res, validationErrors.join('<br>'), registrationSuccess);
     }
 
     const { username, password } = req.body;
@@ -38,8 +43,6 @@ module.exports.loginUser = async (req, res) => {
       req.session.user = user;
 
       res.redirect('/dashboard');
-      
-      res.status(200).json({ message: "Login successful!" });
     } else {
       res.status(401).json({ error: "Invalid username or password" });
     }
