@@ -14,7 +14,7 @@ hunterRouter.post('/login', loginUser)
 
 // Hunter home page
 hunterRouter.get('/', function(req, res){
-	res.status(200).send("Hello Hackers!")
+	res.render('home');
 });
 
 module.exports = hunterRouter;
