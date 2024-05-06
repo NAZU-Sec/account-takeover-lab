@@ -5,8 +5,12 @@ const express = require('express');
 const app = express();
 const morgan = require('morgan');
 app.use(morgan('dev'));
-const hunterRouter = require('../routes/userRoute')
-const chalRouter = require('../routes/chalRoute')
+
+// Challenges
+const challengesRouter = require('../routes/challenges');
+
+const dashboardRouter = require('../routes/dashboard');
+const usersRouter = require('../routes/users');
 
 // sesssion
 const expressSession = require('express-session');
@@ -39,10 +43,14 @@ app.use((err, req, res, next) => {
   res.status(500).send('Something went wrong!');
 });
 
-// Main Route
-app.use('/', hunterRouter);
 
-// Challenge Route
-app.use('/dashboard/level', chalRouter);
+// Use the routers for each level
+app.use('/challenges', challengesRouter);
+app.use('/dashboard', dashboardRouter);
+app.use('/users', usersRouter);
+
+app.get('/', (req, res) => {
+	res.redirect('/dashboard');
+  });
 
 module.exports = app;

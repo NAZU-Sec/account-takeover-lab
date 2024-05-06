@@ -3,7 +3,6 @@
 const app = require('./app/app');
 const http = require('http');
 
-require('./config/dbConnect')
 require('dotenv').config();
 
 const PORT = process.env.PORT || 3000;
