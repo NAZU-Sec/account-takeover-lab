@@ -48,6 +48,29 @@ To get started with Account Takeover Lab, follow these steps:
 - Redis (optional)
 - Cookies (optional)
 
+## Challenges
+
+- Weak Passwords
+- Brute Force Attacks
+- Session Fixation
+- Client-Side Weaknesses
+- Cross-Site Request Forgery (CSRF)
+- Cross-Site Scripting (XSS)
+- OAuth Vulnerabilities
+- Logic Flows
+- File Upload Vulnerabilities
+- Remote Code Execution (RCE)
+- Privilege Escalation
+
+Write-ups
+
+To write a write-up, follow these steps:
+
+1. Create a new folder under your username in the `writeup` folder.
+2. Write your write-up in a markdown file and save it in the new folder.
+3. Submit a pull request to add your write-up to the repository.
+
+
 ## Contributing
 
 If you'd like to contribute to Account Takeover Lab, please follow these steps:
