@@ -1,27 +1,30 @@
 FROM alpine:latest
 
-# Update & Install Node.js
-RUN apt-get update -q \
-  && DEBIAN_FRONTEND=noninteractive apt-get install -qy mysql-client \
-  && apt-get clean \
-  && rm -rf /var/lib/apt
+# Update and install Node.js and npm
+RUN apk update && apk add nodejs npm vim nano findutils coreutils openssh-client wget tree sed tcpdump nmap
 
-RUN apk add --no-cache nodejs
-
-# Create a working directory
+# Set working directory
 WORKDIR /app
 
-# Copy the application code
-COPY . /app
+# Copy package.json and package-lock.json files
+COPY package*.json ./
 
 # Install dependencies
 RUN npm install
 
+# Copy the rest of the application files
+COPY . .
+
 # Expose the application port
-EXPOSE 8080
+EXPOSE 3000
 
-# Start the application
-CMD ["npm", "start"]
+# Shell & Start the application
+CMD ["/bin/sh", "-c", "npm start && /bin/sh"]
 
-#You can build the Docker image with the following command: docker build -t account-takeover-lab .\
-#After the image is built, you can run it with the following command: docker run -p 8080:8080 -d account-takeover-lab
+######################### Install #######################
+
+### You can build the Docker image with the following command: 
+# docker build -t account-takeover-lab .
+
+### After the image is built, you can run it with the following command: 
+# docker run -p 3000:3000 -d account-takeover-lab
