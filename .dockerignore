@@ -1,0 +1,12 @@
+.git
+.env
+.env.*
+!.env.example
+node_modules
+npm-debug.log*
+.npm/_logs
+coverage
+.nyc_output
+test-results
+test-output
+*.lcov

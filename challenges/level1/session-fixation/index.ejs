@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Session Fixation</title>
+    <style>
+        body {
+            background-color: #111;
+            color: #f3f3f3;
+            font-family: Arial, sans-serif;
+            margin: 2rem;
+        }
+
+        .wrap {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .card {
+            border: 1px solid #333;
+            background: #1a1a1a;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+        }
+
+        h1, h2, h3 {
+            margin-top: 0;
+        }
+
+        form {
+            margin-bottom: 1rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.25rem;
+            font-weight: bold;
+        }
+
+        input {
+            width: 100%;
+            max-width: 420px;
+            box-sizing: border-box;
+            padding: 0.55rem;
+            margin-bottom: 0.75rem;
+            border-radius: 4px;
+            border: 1px solid #555;
+            background: #000;
+            color: #fff;
+        }
+
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 0.75rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 0.75rem;
+        }
+
+        .status {
+            background: #0f1f12;
+            border: 1px solid #25432a;
+            padding: 1rem;
+            border-radius: 6px;
+        }
+
+        code {
+            background: #000;
+            border: 1px solid #333;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            word-break: break-all;
+        }
+
+        ul {
+            padding-left: 1.2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="wrap">
+        <div class="card">
+            <h1>Session Fixation</h1>
+            <p>
+                Session fixation happens when an attacker can force a victim to use a known session identifier,
+                then authenticates the victim without rotating that identifier. The attacker can reuse the same
+                session ID after the victim logs in.
+            </p>
+            <p>
+                This training challenge keeps the exercise local and synthetic. It never uses real accounts or external
+                services. The demo credentials are intentionally hard-coded for the lab only.
+            </p>
+        </div>
+
+        <div class="card">
+            <h2>Current session state</h2>
+            <div class="status">
+                <p><strong>Initialized:</strong> <%= state.initialized ? 'Yes' : 'No' %></p>
+                <p><strong>Authenticated:</strong> <%= state.authenticated ? 'Yes' : 'No' %></p>
+                <p><strong>Current synthetic user:</strong> <%= state.username || 'None' %></p>
+                <p><strong>Auth method:</strong> <%= state.authMethod || 'None' %></p>
+                <p><strong>Session ID:</strong> <code><%= state.sessionId %></code></p>
+            </div>
+
+            <% if (message) { %>
+                <p><em><%= message %></em></p>
+            <% } %>
+        </div>
+
+        <div class="card">
+            <h2>1. Initialize a pre-authentication session</h2>
+            <form action="/dashboard/level1/session-fixation/init" method="post">
+                <button type="submit">Initialize pre-authentication session</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>2. Demonstration: vulnerable login</h2>
+            <p>
+                This route intentionally keeps the existing session identifier after authentication. The same session remains
+                attached to the attacker-controlled ID.
+            </p>
+            <form action="/dashboard/level1/session-fixation/vulnerable-login" method="post">
+                <label for="vulnerable-username">Synthetic username</label>
+                <input id="vulnerable-username" name="username" type="text" value="session_fixation_demo" required>
+
+                <label for="vulnerable-password">Synthetic password</label>
+                <input id="vulnerable-password" name="password" type="password" value="session_fixation_pass" required>
+
+                <button type="submit">Run vulnerable login</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>3. Demonstration: secure login</h2>
+            <p>
+                This route validates the same synthetic credentials but regenerates the session identifier before setting
+                the authenticated state. The old session can no longer access the authenticated session.
+            </p>
+            <form action="/dashboard/level1/session-fixation/secure-login" method="post">
+                <label for="secure-username">Synthetic username</label>
+                <input id="secure-username" name="username" type="text" value="session_fixation_demo" required>
+
+                <label for="secure-password">Synthetic password</label>
+                <input id="secure-password" name="password" type="password" value="session_fixation_pass" required>
+
+                <button type="submit">Run secure login</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>4. Session check</h2>
+            <p>Use this endpoint to inspect the current authenticated state in a browser or by API request.</p>
+            <a href="/dashboard/level1/session-fixation/status"><button type="button">View current session state</button></a>
+        </div>
+
+        <div class="card">
+            <h2>5. Reset the demonstration</h2>
+            <form action="/dashboard/level1/session-fixation/reset" method="post">
+                <button type="submit">Reset session</button>
+            </form>
+        </div>
+
+        <div class="card">
+            <h2>Visible comparison</h2>
+            <ul>
+                <li><strong>Vulnerable flow:</strong> keeps the same session ID after login.</li>
+                <li><strong>Secure flow:</strong> regenerates the session ID before auth state is assigned.</li>
+                <li><strong>Remediation:</strong> rotate the session ID after authentication and discard the pre-authentication session.</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
