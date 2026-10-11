@@ -23,10 +23,10 @@ router.post('/level1/task-1', (req, res) => {
   // Check if the username and password are correct
   if (username === 'account_takeover_user' && password === 'account_takeover_pass') {
     // Redirect the user to the congratulations page
-    res.redirect('/level1/task-1/congratulations');
+    res.redirect('/dashboard/level1/task-1/congratulations');
   } else {
     // Redirect the user back to the login page
-    res.redirect('/level1/task-1');
+    res.redirect('/dashboard/level1/task-1');
   }
 });
 
