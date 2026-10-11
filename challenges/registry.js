@@ -14,7 +14,8 @@ const challenges = [
     level: 1,
     relativeDirectory: 'challenges/level1/session-fixation',
     description: 'Study how an attacker-controlled session can affect account access.',
-    status: 'planned',
+    status: 'implemented',
+    href: '/dashboard/level1/session-fixation',
   },
   {
     id: 'weak-passwords',
