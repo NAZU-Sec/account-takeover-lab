@@ -56,6 +56,17 @@ npm.cmd run server
 
 The server uses port `3000` by default; set `$env:PORT` in PowerShell before starting to select a different port.
 
+## Optional Docker run
+
+Using the existing Dockerfile, build and run the lab with the published port bound to localhost:
+
+```powershell
+docker build -t account-takeover-lab .
+docker run --rm -p 127.0.0.1:3000:3000 account-takeover-lab
+```
+
+Open <http://localhost:3000>. Binding the published port to `127.0.0.1` restricts host-side access to that port; it does not disable the container's outbound networking or provide complete isolation. The current image is not hardened or production-ready.
+
 ## Training credentials
 
 The partial brute-force exercise checks against this synthetic training account (as defined in the application route):
