@@ -1,23 +1,23 @@
 <div class="dashboard">
-  <div class="tabs">
-    <div class="tab">
-      <h2>Users</h2>
+  <h1>Challenges</h1>
+  <% Object.entries(challengesByLevel).forEach(([level, levelChallenges]) => { %>
+    <section class="challenge-level">
+      <h2>Level <%= level %></h2>
       <ul>
-        <!-- Render the list of users -->
+        <% levelChallenges.forEach((challenge) => { %>
+          <li data-challenge-id="<%= challenge.id %>">
+            <h3>
+              <% if (challenge.href) { %>
+                <a href="<%= challenge.href %>"><%= challenge.title %></a>
+              <% } else { %>
+                <%= challenge.title %>
+              <% } %>
+              <span class="challenge-status"><%= challenge.status %></span>
+            </h3>
+            <p><%= challenge.description %></p>
+          </li>
+        <% }); %>
       </ul>
-    </div>
-    <div class="tab">
-      <h2>Challenges</h2>
-      <ul>
-        <!-- Render the list of challenges -->
-      </ul>
-    </div>
-    <div class="tab">
-      <h2>Leaderboard</h2>
-      <!-- Render the leaderboard -->
-    </div>
-  </div>
-  <div class="content">
-    <!-- Render the content for the selected tab -->
-  </div>
+    </section>
+  <% }); %>
 </div>

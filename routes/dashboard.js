@@ -1,8 +1,17 @@
 const express = require('express');
+const { challenges } = require('../challenges/registry');
 const router = express.Router();
 
 router.get('/', (req, res) => {
-  res.send('Welcome to the dashboard!');
+  const challengesByLevel = challenges.reduce((levels, challenge) => {
+    if (!levels[challenge.level]) {
+      levels[challenge.level] = [];
+    }
+    levels[challenge.level].push(challenge);
+    return levels;
+  }, {});
+
+  res.render('dashboard', { challengesByLevel });
 });
 
 router.get('/level1', (req, res) => {

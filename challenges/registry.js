@@ -6,6 +6,7 @@ const challenges = [
     relativeDirectory: 'challenges/level1/brute-force-attacks',
     description: 'Explore password guessing against a synthetic account.',
     status: 'partial',
+    href: '/dashboard/level1/task-1',
   },
   {
     id: 'session-fixation',
